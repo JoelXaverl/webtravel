@@ -34,6 +34,7 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
+                'permissions' => $request->user() ? $request->user()->getUserPermissions() : [],
             ],
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
@@ -41,4 +42,7 @@ class HandleInertiaRequests extends Middleware
             ],
         ];
     }
+
+    // if 100>80 ? "iya" : "tidak"
+    // if 80>100 ? "iya" : "tidak"
 }
