@@ -4,6 +4,7 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
+import hasAnyPermission from '@/Utils/Permissions';
 
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
@@ -13,13 +14,13 @@ export default function AuthenticatedLayout({ header, children }) {
 
     return (
         <div className="min-h-screen bg-gray-100">
-            <nav className="border-b border-gray-100 bg-white">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div className="flex h-16 justify-between">
+            <nav className="bg-white border-b border-gray-100">
+                <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                    <div className="flex justify-between h-16">
                         <div className="flex">
-                            <div className="flex shrink-0 items-center">
+                            <div className="flex items-center shrink-0">
                                 <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
+                                    <ApplicationLogo className="block w-auto text-gray-800 fill-current h-9" />
                                 </Link>
                             </div>
 
@@ -30,6 +31,57 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
+
+                                {hasAnyPermission(['permissions index']) && (
+                                    <NavLink href={route('permissions.index')} active={route().current('permissions*')}>
+                                        Permissions
+                                    </NavLink>
+                                )}
+                                {hasAnyPermission(["roles index"]) && (
+                                    <NavLink href={route("roles.index")} active={route().current("roles*")}>
+                                        Roles
+                                    </NavLink>
+                                )}
+                                {hasAnyPermission(['users index']) && (
+                                    <NavLink href={route('users.index')} active={route().current('users*')}>
+                                        Users
+                                    </NavLink>
+                                )}
+                                {hasAnyPermission(['categories index']) && (
+                                    <NavLink href={route('categories.index')} active={route().current('categories*')}>
+                                        Categories
+                                    </NavLink>
+                                )}
+                                {hasAnyPermission(['regions index']) && (
+                                    <NavLink href={route('regions.index')} active={route().current('regions*')}>
+                                        Regions
+                                    </NavLink>
+                                )}
+                                {hasAnyPermission(['locations index']) && (
+                                    <NavLink href={route('locations.index')} active={route().current('locations*')}>
+                                        Locations
+                                    </NavLink>
+                                )}
+                                {hasAnyPermission(['tickets index']) && (
+                                    <NavLink href={route('tickets.index')} active={route().current('tickets*')}>
+                                        Tickets
+                                    </NavLink>
+                                )}
+                                {hasAnyPermission(['tickets index']) && (
+                                    <NavLink href={route('ticket-categories.index')} active={route().current('ticket-categories*')}>
+                                         Tickets Categories
+                                    </NavLink>
+                                )}
+                                {hasAnyPermission(['transactions index']) && (
+                                    <NavLink href={route('transactions.index')} active={route().current('transactions*')}>
+                                        Transactions
+                                    </NavLink>
+                                )}
+                                {hasAnyPermission(['reviews index']) && (
+                                    <NavLink href={route('reviews.index')} active={route().current('reviews*')}>
+                                        Reviews
+                                    </NavLink>
+                                )}
                             </div>
                         </div>
 
@@ -40,7 +92,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                         <span className="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                className="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none"
+                                                className="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md hover:text-gray-700 focus:outline-none"
                                             >
                                                 {user.name}
 
@@ -78,17 +130,17 @@ export default function AuthenticatedLayout({ header, children }) {
                             </div>
                         </div>
 
-                        <div className="-me-2 flex items-center sm:hidden">
+                        <div className="flex items-center -me-2 sm:hidden">
                             <button
                                 onClick={() =>
                                     setShowingNavigationDropdown(
                                         (previousState) => !previousState,
                                     )
                                 }
-                                className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 transition duration-150 ease-in-out hover:bg-gray-100 hover:text-gray-500 focus:bg-gray-100 focus:text-gray-500 focus:outline-none"
+                                className="inline-flex items-center justify-center p-2 text-gray-400 transition duration-150 ease-in-out rounded-md hover:bg-gray-100 hover:text-gray-500 focus:bg-gray-100 focus:text-gray-500 focus:outline-none"
                             >
                                 <svg
-                                    className="h-6 w-6"
+                                    className="w-6 h-6"
                                     stroke="currentColor"
                                     fill="none"
                                     viewBox="0 0 24 24"
@@ -127,16 +179,56 @@ export default function AuthenticatedLayout({ header, children }) {
                         ' sm:hidden'
                     }
                 >
-                    <div className="space-y-1 pb-3 pt-2">
+                    <div className="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink
                             href={route('dashboard')}
                             active={route().current('dashboard')}
                         >
                             Dashboard
                         </ResponsiveNavLink>
+                        {hasAnyPermission(['permissions index']) && (
+                            <ResponsiveNavLink href={route('permissions.index')} active={route().current('permissions*')}>
+                                Permissions
+                            </ResponsiveNavLink>
+                        )}
+                        {hasAnyPermission(['roles index']) && (
+                            <ResponsiveNavLink href={route('roles.index')} active={route().current('roles*')}>
+                                Roles
+                            </ResponsiveNavLink>
+                        )}
+                        {hasAnyPermission(['users index']) && (
+                            <ResponsiveNavLink href={route('users.index')} active={route().current('users*')}>
+                                Users
+                            </ResponsiveNavLink>
+                        )}
+                        {hasAnyPermission(['categories index']) && (
+                            <ResponsiveNavLink href={route('categories.index')} active={route().current('categories*')}>
+                                Categories
+                            </ResponsiveNavLink>
+                        )}
+                        {hasAnyPermission(['locations index']) && (
+                            <ResponsiveNavLink href={route('locations.index')} active={route().current('locations*')}>
+                                Locations
+                            </ResponsiveNavLink>
+                        )}
+                        {hasAnyPermission(['tickets index']) && (
+                            <ResponsiveNavLink href={route('tickets.index')} active={route().current('tickets*')}>
+                                Tickets
+                            </ResponsiveNavLink>
+                        )}
+                        {hasAnyPermission(['transactions index']) && (
+                            <ResponsiveNavLink href={route('transactions.index')} active={route().current('transactions*')}>
+                                Transactions
+                            </ResponsiveNavLink>
+                        )}
+                        {hasAnyPermission(['reviews index']) && (
+                            <ResponsiveNavLink href={route('reviews.index')} active={route().current('reviews*')}>
+                                Reviews
+                            </ResponsiveNavLink>
+                        )}
                     </div>
 
-                    <div className="border-t border-gray-200 pb-1 pt-4">
+                    <div className="pt-4 pb-1 border-t border-gray-200">
                         <div className="px-4">
                             <div className="text-base font-medium text-gray-800">
                                 {user.name}
@@ -164,7 +256,7 @@ export default function AuthenticatedLayout({ header, children }) {
 
             {header && (
                 <header className="bg-white shadow">
-                    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                    <div className="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
                         {header}
                     </div>
                 </header>
