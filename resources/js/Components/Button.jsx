@@ -3,7 +3,7 @@ import { IconArrowBack, IconCheck, IconPencilCog, IconPlus, IconTrash } from "@t
 import React from "react";
 import Swal from "sweetalert2"; // untuk alert / Pop Up
 
-export default function Button() {
+export default function Button({ type, url, className, children, ...props }) {
     const { delete: destroy } = useForm();
 
     const handleDeleteData = async (url) => {
