@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Spatie\Permission\Models\Permission;
 
-class PermissionController extends Controller implements HasMiddleware
+class PermissionController extends Controller
 {
+
     public static function middleware()
     {
         return [
@@ -19,13 +19,12 @@ class PermissionController extends Controller implements HasMiddleware
             new Middleware('permission:permissions delete', only: ['destroy']),
         ];
     }
-
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        // get permissions
+        //get permissions
         $permissions = Permission::select('id','name')
             ->when($request->search, fn($search) => $search->where('name', 'like', '%'.$request->search. '%'))
             ->latest()
@@ -57,6 +56,7 @@ class PermissionController extends Controller implements HasMiddleware
 
         //render view
         return to_route('permissions.index');
+
     }
 
     /**
@@ -64,7 +64,7 @@ class PermissionController extends Controller implements HasMiddleware
      */
     public function edit(Permission $permission)
     {
-        // render view
+        //render view
         return inertia('Permissions/Edit' , ['permission' => $permission]);
     }
 
@@ -73,7 +73,7 @@ class PermissionController extends Controller implements HasMiddleware
      */
     public function update(Request $request, Permission $permission)
     {
-        // validate request
+        //validate request
         $request->validate(['name' => 'required|min:3|max:255|unique:permissions,name,'.$permission->id]);
 
         // update permission data
@@ -81,6 +81,7 @@ class PermissionController extends Controller implements HasMiddleware
 
         // render view
         return to_route('permissions.index');
+
     }
 
     /**
