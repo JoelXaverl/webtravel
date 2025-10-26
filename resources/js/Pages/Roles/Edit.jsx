@@ -8,8 +8,7 @@ import Card from "@/Components/Card";
 import Checkbox from "@/Components/Checkbox";
 import Swal from "sweetalert2";
 
-export default function Edit({auth}) {
-
+export default function Edit({ auth }) {
     // destruct permissions from usepage.props
     const { permissions, role } = usePage().props;
 
@@ -109,7 +108,6 @@ export default function Edit({auth}) {
                                             )}
                                         </div>
                                     )
-
                                 )}
                             </div>
                         </div>

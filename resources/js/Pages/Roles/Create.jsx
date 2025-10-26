@@ -9,7 +9,7 @@ import Card from "@/Components/Card";
 import Checkbox from "@/Components/Checkbox";
 import Swal from "sweetalert2";
 
-export default function Create({auth}) {
+export default function Create({ auth }) {
     // destruct permissions from usepage.props
     const { permissions } = usePage().props;
 
@@ -102,13 +102,15 @@ export default function Create({auth}) {
                                             )}
                                         </div>
                                     )
-
                                 )}
                             </div>
                         </div>
                         <div className="flex items-center gap-2">
                             <Button type={"submit"} />
-                            <Button type={"cancel"} url={route("roles.index")}/>
+                            <Button
+                                type={"cancel"}
+                                url={route("roles.index")}
+                            />
                         </div>
                     </form>
                 </Card>
